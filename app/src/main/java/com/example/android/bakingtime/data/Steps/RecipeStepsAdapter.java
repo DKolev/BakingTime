@@ -27,7 +27,11 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
 
     private ArrayList<Steps> mRecipeStepsList;
     private Context mContext;
-    private int selectedPosition=-1;
+    private int selectedPosition = -1;
+
+//    // trying the item selection highlight
+//    private SparseBooleanArray selectedItems;
+
 
     public RecipeStepsAdapter(Context context, ArrayList<Steps> steps) {
         this.mContext = context;
@@ -41,7 +45,7 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
     }
 
     @Override
-    public void onBindViewHolder(RecipeStepsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecipeStepsAdapter.ViewHolder holder, final int position) {
         holder.name.setText(mRecipeStepsList.get(position).getShortDescription());
 
     }
@@ -63,6 +67,7 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
             ButterKnife.bind(this, itemView);
             mView = itemView;
             mView.setOnClickListener(this);
+            mView.setSelected(true);
         }
 
         @Override
@@ -93,4 +98,14 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
             }
         }
     }
+
+
+//    public void toggleSelection(int position) {
+//        if (selectedItems.get(position, false)) {
+//            selectedItems.delete(position);
+//        } else {
+//            selectedItems.put(position, true);
+//        }
+//        notifyItemChanged(position);
+//    }
 }
