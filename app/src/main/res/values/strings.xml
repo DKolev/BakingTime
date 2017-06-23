@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">BakingTime</string>
+    <string name="title_recipe_detail">Recipe Details</string>
+    <string name="title_step_detail">Step Details</string>
+    <string name="title_ingredients">Ingredients</string>
+    <string name="please_select_a_recipe">Please select a recipe step to see details about it.</string>
+
+
+</resources>
