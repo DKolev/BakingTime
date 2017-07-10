@@ -72,12 +72,12 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
 
         @Override
         public void onClick(View view) {
-            Steps step = mRecipeStepsList.get(getAdapterPosition());
+//            Steps stepsList = mRecipeStepsList.get(getAdapterPosition());
             int position = getLayoutPosition();
 
             Bundle arguments = new Bundle();
             // works, passing the position to the fragment. have to figure out if that's the best way...
-            arguments.putParcelable("step", step);
+            arguments.putParcelableArrayList("stepList", mRecipeStepsList);
             arguments.putInt("position", position);
 
             StepDetailFragment stepDetailFragment = new StepDetailFragment();

@@ -24,6 +24,14 @@
             android:layout_margin="5dp"
             android:orientation="vertical">
 
+            <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+                android:id="@+id/playerView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="5dp">
+
+            </com.google.android.exoplayer2.ui.SimpleExoPlayerView>
+
             <TextView
                 android:id="@+id/step_video_url"
                 android:layout_width="match_parent"

@@ -27,6 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
     private String BASE_URL_FOR_RETROFIT = "https://d17h27t6h515a5.cloudfront.net";
+    private String RECIPES_LIST = "recipesList";
 
     public static boolean mTwoPane;
     private ArrayList<Recipe> mRecipeList;
@@ -53,6 +54,11 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle(getTitle());
 
 
+        if (savedInstanceState != null) {
+            mRecipeList = savedInstanceState.getParcelableArrayList(RECIPES_LIST);
+        }
+
+
         if (isTablet(getBaseContext())) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-w600dp).
@@ -74,8 +80,8 @@ public class MainActivity extends AppCompatActivity {
             mRecipeRecyclerView.setLayoutManager(layoutManager);
         }
 
-        // Loading the recipes
-        loadRecipesFromJSON();
+        // Showing the recipes
+        showRecipes();
 
     }
 
@@ -110,5 +116,34 @@ public class MainActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putParcelableArrayList(RECIPES_LIST, mRecipeList);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        mRecipeList = savedInstanceState.getParcelableArrayList(RECIPES_LIST);
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    /***
+     * This method loads the recipes using Retrofit2 (bu default) or uses the mRecipeList if it is
+     * already populated in onSaveInstanceState
+     */
+
+    private void showRecipes() {
+        if (mRecipeList != null) {
+            // Creating a new RecipeAdapter
+            mRecipeAdapter = new RecipeAdapter(getBaseContext(), mRecipeList);
+            mRecipeAdapter.notifyDataSetChanged();
+            // Setting the adapter to the RecyclerView
+            mRecipeRecyclerView.setAdapter(mRecipeAdapter);
+        } else {
+            loadRecipesFromJSON();
+        }
     }
 }

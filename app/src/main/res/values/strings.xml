@@ -4,6 +4,13 @@
     <string name="title_step_detail">Step Details</string>
     <string name="title_ingredients">Ingredients</string>
     <string name="please_select_a_recipe">Please select a recipe step to see details about it.</string>
+    <string name="exoplayer_skip_to_previous">ExoPlayer: skip to previous</string>
+    <string name="exoplayer_play_button">ExoPlayer: play button</string>
+    <string name="exoplayer_pause_button">ExoPlayer: pause button</string>
+    <string name="oven_image">Oven image</string>
+    <string name="previous_button">Previous</string>
+    <string name="step_separator">/</string>
+    <string name="next_button">Next</string>
 
 
 </resources>
