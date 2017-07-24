@@ -33,6 +33,7 @@ public class RecipeIngredientsWidgetConfigureActivity extends Activity {
 
     private AppWidgetManager widgetManager;
     private RemoteViews remoteViews;
+    private String selectedRecipeName;
     @Nullable
     @BindView(R.id.recipes_spinner)
     Spinner spinner;
@@ -106,6 +107,10 @@ public class RecipeIngredientsWidgetConfigureActivity extends Activity {
                 for (int i = 0; i < recipeList.size(); i++) {
                     if (spinner.getSelectedItemPosition() == i) {
                         ingredientsForSelectedRecipe = recipeList.get(i).getIngredients();
+
+                        // Getting the recipe name
+                        selectedRecipeName = recipeList.get(i).getName();
+
                         // Saving the ingredients for the selected recipe in SharedPreferences
                         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -122,6 +127,8 @@ public class RecipeIngredientsWidgetConfigureActivity extends Activity {
                 remoteViews.setRemoteAdapter(R.id.ingredients_list_widget, intent1);
                 // Setting up the emptyView
                 remoteViews.setEmptyView(R.id.ingredients_list_widget, R.id.empty_view);
+                // Setting the recipe name as a header of the widget
+                remoteViews.setTextViewText(R.id.recipe_name_in_widget, selectedRecipeName);
                 // Updating the widget
                 widgetManager.updateAppWidget(mAppWidgetId, remoteViews);
 

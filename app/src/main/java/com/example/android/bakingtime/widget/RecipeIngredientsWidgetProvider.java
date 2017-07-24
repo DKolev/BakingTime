@@ -3,6 +3,12 @@ package com.example.android.bakingtime.widget;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.support.annotation.Nullable;
+import android.widget.TextView;
+
+import com.example.android.bakingtime.R;
+
+import butterknife.BindView;
 
 /**
  * Implementation of App Widget functionality.
@@ -10,12 +16,22 @@ import android.content.Context;
  */
 public class RecipeIngredientsWidgetProvider extends AppWidgetProvider {
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
-    }
+    private String recipeName;
+    @Nullable
+    @BindView(R.id.recipe_name_in_widget)
+    TextView mRecipeName;
+
+
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        for (int i = 0; i < appWidgetIds.length; i++) {
+        }
+
+        super.onUpdate(context, appWidgetManager, appWidgetIds);
+
+
+
     }
 
     @Override
