@@ -1,8 +1,10 @@
 package com.example.android.bakingtime;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import com.example.android.bakingtime.data.Recipes.Recipe;
 import com.example.android.bakingtime.data.Recipes.RecipeAdapter;
 import com.example.android.bakingtime.data.Recipes.RequestInterface;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,10 +63,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (isTablet(getBaseContext())) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-w600dp).
-            // If this view is present, then the
-            // activity should be in two-pane mode.
             mTwoPane = true;
             // Creating a new Grid Layout manager
             RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 3);
@@ -103,6 +102,20 @@ public class MainActivity extends AppCompatActivity {
 
                 // Getting the recipeList
                 mRecipeList = (ArrayList<Recipe>) response.body();
+
+                // Saving the recipeList to the SharedPreferences
+                // https://stackoverflow.com/questions/22984696/storing-array-list-object-in-sharedpreferences
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                Gson gson = new Gson();
+
+                String json = gson.toJson(mRecipeList);
+                editor.putString("recipeList", json);
+                editor.commit();
+
+
+                // end of try
+
                 // Setting the list to a new RecipeAdapter
                 mRecipeAdapter = new RecipeAdapter(getBaseContext(), mRecipeList);
                 mRecipeAdapter.notifyDataSetChanged();
@@ -146,4 +159,5 @@ public class MainActivity extends AppCompatActivity {
             loadRecipesFromJSON();
         }
     }
+
 }

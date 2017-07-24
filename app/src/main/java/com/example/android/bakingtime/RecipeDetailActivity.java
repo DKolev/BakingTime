@@ -107,7 +107,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
                     // Creating a new FragmentManager
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     // Replacing the container with the recipe details with one showing all
-                    // the ingredients necessary ingredients
+                    // the necessary ingredients
                     fragmentManager.beginTransaction()
                             .add(R.id.recipe_detail_container_phone, ingredientsFragment)
                             .addToBackStack(null)

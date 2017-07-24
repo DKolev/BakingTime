@@ -47,7 +47,7 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         return mIngredientsList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
         @BindView(R.id.ingredient_name)
         TextView ingredientName;
         @BindView(R.id.ingredient_quantity)

@@ -11,6 +11,12 @@
     <string name="previous_button">Previous</string>
     <string name="step_separator">/</string>
     <string name="next_button">Next</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
+    <string name="no_ingredients_to_display">No ingredients to display</string>
+    <string name="choose_a_recipe">Choose a recipe</string>
+    <string name="click_the_button_to_show_the_ingredients">Click the button to show the ingredients</string>
 
 
 </resources>
