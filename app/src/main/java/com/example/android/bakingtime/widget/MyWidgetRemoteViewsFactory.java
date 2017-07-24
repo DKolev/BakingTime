@@ -63,7 +63,7 @@ public class MyWidgetRemoteViewsFactory implements RemoteViewsService.RemoteView
                 mIngredientsList == null) {
             return null;
     }
-        RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.ingredient_list_content);
+        RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.recipe_ingredients_widget_list_item);
 
         remoteViews.setTextViewText(R.id.ingredient_name, mIngredientsList.get(position).getIngredient());
         remoteViews.setTextViewText(R.id.ingredient_quantity, mIngredientsList.get(position).getQuantity());
