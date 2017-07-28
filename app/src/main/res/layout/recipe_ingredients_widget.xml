@@ -1,4 +1,7 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    android:id="@+id/widget"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/widget_margin">
@@ -8,18 +11,42 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/recipe_name_in_widget"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:textSize="30sp"
-            android:background="@android:color/holo_orange_light" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/recipe_name_in_widget"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@color/colorPrimary"
+                android:padding="10dp"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                tools:text="Nutella Pie" />
+
+            <ImageButton
+                android:id="@+id/widget_settings_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="50dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="@color/colorPrimary"
+                android:src="@drawable/ic_settings_white_24dp"/>
+
+        </LinearLayout>
 
         <ListView
             android:id="@+id/ingredients_list_widget"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/holo_blue_bright">
+            android:dividerHeight="2dp"
+
+            android:background="@android:color/white">
 
         </ListView>
 
