@@ -5,8 +5,8 @@
     android:name="com.example.android.bakingtime.MainFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
+    android:layout_marginLeft="@dimen/recipe_details_recycler_view_margin_left"
+    android:layout_marginRight="@dimen/recipe_details_recycler_view_margin_right"
     app:layoutManager="LinearLayoutManager"
     tools:context="com.example.android.bakingtime.MainActivity"
     tools:listitem="@layout/recipe_list_content" />

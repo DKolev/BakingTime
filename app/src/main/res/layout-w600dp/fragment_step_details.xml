@@ -10,25 +10,25 @@
         android:id="@+id/card_view_ingredients"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="5dp"
-        app:cardCornerRadius="2dp"
-        app:cardElevation="4dp"
+        android:layout_margin="@dimen/card_view_layout_margin"
+        app:cardCornerRadius="@dimen/corner_radius"
+        app:cardElevation="@dimen/card_elevation"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true"
-        app:contentPadding="2dp">
+        app:contentPadding="@dimen/card_content_padding">
 
         <LinearLayout
             android:id="@+id/step_details"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/card_view_layout_margin"
             android:orientation="vertical">
 
             <com.google.android.exoplayer2.ui.SimpleExoPlayerView
                 android:id="@+id/playerView"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginBottom="5dp">
+                android:layout_height="@dimen/exo_player_view_height"
+                android:layout_marginBottom="@dimen/margin_bottom">
 
             </com.google.android.exoplayer2.ui.SimpleExoPlayerView>
 

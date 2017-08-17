@@ -27,7 +27,26 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <include layout="@layout/recipe_list" />
+        <android.support.v4.widget.SwipeRefreshLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/swiperefresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/recipe_list" />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <TextView
+            android:id="@+id/main_activity_empty_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_margin="@dimen/widget_empty_view_layout_margin"
+            android:contentDescription="@string/no_ingredients_to_display"
+            android:text="@string/check_your_connection"
+            android:textSize="24sp"
+            android:textStyle="bold|italic" />
     </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

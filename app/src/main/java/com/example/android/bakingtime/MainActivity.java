@@ -3,13 +3,18 @@ package com.example.android.bakingtime;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.android.bakingtime.data.Recipes.Recipe;
 import com.example.android.bakingtime.data.Recipes.RecipeAdapter;
@@ -37,6 +42,14 @@ public class MainActivity extends AppCompatActivity {
     private RecipeAdapter mRecipeAdapter;
     @BindView(R.id.recipe_list)
     RecyclerView mRecipeRecyclerView;
+    @BindView(R.id.main_activity_empty_view)
+    TextView mErrorMessageTextView;
+    @BindView(R.id.swiperefresh)
+    SwipeRefreshLayout mySwypeRefreshLayout;
+
+    ConnectivityManager mConnectivityManager;
+    NetworkInfo mNetworkInfo;
+
 
     public static boolean isTablet(Context context) {
         return (context.getResources().getConfiguration().screenLayout
@@ -79,9 +92,32 @@ public class MainActivity extends AppCompatActivity {
             mRecipeRecyclerView.setLayoutManager(layoutManager);
         }
 
-        // Showing the recipes
-        showRecipes();
+        // Getting a reference to the ConnectivityManager to check state of network connectivity
+        mConnectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        // Getting details on the currently active default data network
+        mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+        // If there is a network connection, load the recipes.
+        if (mNetworkInfo != null && mNetworkInfo.isConnected()) {
+            // Show the recipes
+            showRecipes();
+        } else {
+            // If there is no connection, show the error message
+            showErrorMessage();
+        }
 
+        // trying swipe-to-refresh. Not quite there yet
+        mySwypeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadRecipesFromJSON();
+            }
+        });
+
+    }
+
+    private void showErrorMessage() {
+        mErrorMessageTextView.setVisibility(View.VISIBLE);
+        mRecipeRecyclerView.setVisibility(View.INVISIBLE);
     }
 
     /**
@@ -150,12 +186,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void showRecipes() {
         if (mRecipeList != null) {
+            // Setting the error message to be invisible
+            mErrorMessageTextView.setVisibility(View.INVISIBLE);
             // Creating a new RecipeAdapter
             mRecipeAdapter = new RecipeAdapter(getBaseContext(), mRecipeList);
             mRecipeAdapter.notifyDataSetChanged();
             // Setting the adapter to the RecyclerView
             mRecipeRecyclerView.setAdapter(mRecipeAdapter);
         } else {
+            // Setting the error message to be invisible
+            mErrorMessageTextView.setVisibility(View.INVISIBLE);
             loadRecipesFromJSON();
         }
     }

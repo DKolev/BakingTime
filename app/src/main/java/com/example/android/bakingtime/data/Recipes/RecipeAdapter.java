@@ -55,7 +55,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @BindView(R.id.name)
+        @BindView(R.id.recipe_name)
         TextView name;
         //        @BindView(R.id.recipe_image)
 //        ImageView image;

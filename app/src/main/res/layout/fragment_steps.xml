@@ -15,19 +15,19 @@
             android:id="@+id/card_view_ingredients"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            app:cardCornerRadius="2dp"
-            app:cardElevation="4dp"
+            android:layout_margin="@dimen/card_view_layout_margin"
+            app:cardCornerRadius="@dimen/corner_radius"
+            app:cardElevation="@dimen/card_elevation"
             app:cardPreventCornerOverlap="false"
             app:cardUseCompatPadding="true"
-            app:contentPadding="2dp">
+            app:contentPadding="@dimen/card_content_padding">
 
             <TextView
                 android:id="@+id/ingredients"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/text_margin"
-                android:text="Ingredients"
+                android:text="@string/ingredients"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:visibility="visible" />
 

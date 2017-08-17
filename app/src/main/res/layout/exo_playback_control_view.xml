@@ -52,8 +52,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
+            android:paddingLeft="@dimen/exo_player_padding"
+            android:paddingRight="@dimen/exo_player_padding"
             android:textColor="#FFBEBEBE"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -61,7 +61,7 @@
         <com.google.android.exoplayer2.ui.DefaultTimeBar
             android:id="@id/exo_progress"
             android:layout_width="0dp"
-            android:layout_height="26dp"
+            android:layout_height="@dimen/exo_player_timebar_height"
             android:layout_weight="1" />
 
         <TextView
@@ -69,8 +69,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
+            android:paddingLeft="@dimen/exo_player_padding"
+            android:paddingRight="@dimen/exo_player_padding"
             android:textColor="#FFBEBEBE"
             android:textSize="14sp"
             android:textStyle="bold" />
