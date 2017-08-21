@@ -13,7 +13,6 @@ import com.example.android.bakingtime.R;
 import com.example.android.bakingtime.RecipeDetailActivity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +25,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     private ArrayList<Recipe> mRecipeList;
     private Context mContext;
-    private RecyclerClickListener mListener;
     private int selected_position = 0;
 
 
@@ -82,11 +80,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
         }
 
-
     }
 
-    public interface RecyclerClickListener {
-        void onRecyclerClick(Recipe recipe, List<Recipe> recipeList);
-    }
 }
 

@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.main_activity_empty_view)
     TextView mErrorMessageTextView;
     @BindView(R.id.swiperefresh)
-    SwipeRefreshLayout mySwypeRefreshLayout;
+    SwipeRefreshLayout mySwipeRefreshLayout;
 
     ConnectivityManager mConnectivityManager;
     NetworkInfo mNetworkInfo;
@@ -106,19 +106,40 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // trying swipe-to-refresh. Not quite there yet
-        mySwypeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mySwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
+                android.R.color.holo_green_dark,
+                android.R.color.holo_orange_dark,
+                android.R.color.holo_blue_dark);
+        mySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                loadRecipesFromJSON();
+                refreshRecipeList();
+
             }
+
         });
 
     }
 
-    private void showErrorMessage() {
-        mErrorMessageTextView.setVisibility(View.VISIBLE);
-        mRecipeRecyclerView.setVisibility(View.INVISIBLE);
+    private void refreshRecipeList() {
+        // Getting a reference to the ConnectivityManager to check state of network connectivity
+        mConnectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        // Getting details on the currently active default data network
+        mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+        // If there is a network connection, load the recipes.
+        if (mNetworkInfo != null && mNetworkInfo.isConnected()) {
+            // Show the recipes
+                showRecipes();
+        } else {
+            // If there is no connection, show the error message
+            showErrorMessage();
+        }
+
+        if (mySwipeRefreshLayout != null && mySwipeRefreshLayout.isRefreshing()) {
+            mySwipeRefreshLayout.setRefreshing(false);
+        }
     }
+
 
     /**
      * A method that loads the recipes using Retrofit
@@ -148,9 +169,6 @@ public class MainActivity extends AppCompatActivity {
                 String json = gson.toJson(mRecipeList);
                 editor.putString("recipeList", json);
                 editor.commit();
-
-
-                // end of try
 
                 // Setting the list to a new RecipeAdapter
                 mRecipeAdapter = new RecipeAdapter(getBaseContext(), mRecipeList);
@@ -196,8 +214,14 @@ public class MainActivity extends AppCompatActivity {
         } else {
             // Setting the error message to be invisible
             mErrorMessageTextView.setVisibility(View.INVISIBLE);
+            // Loading the recipes using Retrofit2
             loadRecipesFromJSON();
         }
+    }
+
+    private void showErrorMessage() {
+        mErrorMessageTextView.setVisibility(View.VISIBLE);
+        mRecipeRecyclerView.setVisibility(View.INVISIBLE);
     }
 
 }
