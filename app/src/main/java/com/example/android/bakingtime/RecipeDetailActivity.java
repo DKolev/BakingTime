@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
  * item details are presented side-by-side with a list of items
  * in a {@link MainActivity}.
  */
-public class RecipeDetailActivity extends AppCompatActivity {
+public class RecipeDetailActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener{
 
     public static Recipe mRecipe;
     private ArrayList<Steps> mStepsList;
@@ -54,6 +54,9 @@ public class RecipeDetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
+        //Listen for changes in the back stack
+        getSupportFragmentManager().addOnBackStackChangedListener(this);
+
         ButterKnife.bind(this);
 
         // Getting the bundle from the MainActivity for the clicked recipe
@@ -63,13 +66,19 @@ public class RecipeDetailActivity extends AppCompatActivity {
         }
 
         // Getting the steps list
-        mStepsList = this.mRecipe.getSteps();
+        if (this.mRecipe != null) {
+            mStepsList = this.mRecipe.getSteps();
+        }
 
         // Getting the ingredients list
-        mIngredientsList = this.mRecipe.getIngredients();
+        if (this.mRecipe != null) {
+            mIngredientsList = this.mRecipe.getIngredients();
+        }
 
         // Getting the recipe name
-        mRecipeName = mRecipe.getName();
+        if (mRecipe != null) {
+            mRecipeName = mRecipe.getName();
+        }
 
         // Getting the recipe image
         if (mRecipeName.contains(getString(R.string.nutella_pie))) {
@@ -148,16 +157,22 @@ public class RecipeDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            // This ID represents the Home or Up button. In the case of this
-            // activity, the Up button is shown. For
-            // more details, see the Navigation pattern on Android Design:
-            //
-            // http://developer.android.com/design/patterns/navigation.html#up-vs-back
-            //
+            // If there are fragments in the BackStack the button navigates to the previous one
+            if (getSupportFragmentManager().getBackStackEntryCount()>0) {
+                getSupportFragmentManager().popBackStack();
+            }
+            // otherwise, back to the MainActivity
+            else {
             navigateUpTo(new Intent(this, MainActivity.class));
+            }
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onBackStackChanged() {
     }
 
 }
