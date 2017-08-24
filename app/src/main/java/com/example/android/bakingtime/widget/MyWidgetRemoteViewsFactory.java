@@ -44,8 +44,10 @@ public class MyWidgetRemoteViewsFactory implements RemoteViewsService.RemoteView
         String json = sharedPreferences.getString("ingredientsForSelectedRecipe", null);
         Type type = new TypeToken<ArrayList<Ingredients>>() {}.getType();
         mIngredientsList = gson.fromJson(json, type);
-
+        
     }
+
+
 
     @Override
     public void onDestroy() {
@@ -93,4 +95,6 @@ public class MyWidgetRemoteViewsFactory implements RemoteViewsService.RemoteView
     public boolean hasStableIds() {
         return true;
     }
+
+
 }

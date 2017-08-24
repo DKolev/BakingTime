@@ -108,7 +108,7 @@ public class RecipeIngredientsWidgetConfigureActivity extends Activity {
             btnCreate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ArrayList <Ingredients> ingredientsForSelectedRecipe = null;
+                    ArrayList <Ingredients> ingredientsForSelectedRecipe;
                     // Getting the ingredients for a selected recipe
                     if (recipeList != null) {
                         for (int i = 0; i < recipeList.size(); i++) {
@@ -138,8 +138,6 @@ public class RecipeIngredientsWidgetConfigureActivity extends Activity {
                     // Setting the recipe name as a header of the widget
                     remoteViews.setTextViewText(R.id.recipe_name_in_widget, selectedRecipeName);
 
-                    // works, except updating the content
-                    // TODO: Have to figure out how to update the content of the widget from here
                     // Creating an intent pointing to the configuration activity
                     Intent configIntent = new Intent(getApplicationContext(), RecipeIngredientsWidgetConfigureActivity.class);
                     // Create an extra giving the App Widget Id
@@ -156,11 +154,13 @@ public class RecipeIngredientsWidgetConfigureActivity extends Activity {
                     Intent resultValue = new Intent();
                     resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
                     setResult(RESULT_OK, resultValue);
+
+                    // Notifying the widget for the changed data
+                    widgetManager.notifyAppWidgetViewDataChanged(mAppWidgetId, R.id.ingredients_list_widget);
                     finish();
                 }
             });
         }
-
     }
 }
 
