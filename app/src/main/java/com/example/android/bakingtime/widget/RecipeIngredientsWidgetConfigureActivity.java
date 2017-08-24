@@ -1,6 +1,7 @@
 package com.example.android.bakingtime.widget;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,13 +14,13 @@ import android.widget.RemoteViews;
 import android.widget.Spinner;
 
 import com.example.android.bakingtime.R;
+import com.example.android.bakingtime.data.Ingredients.Ingredients;
 import com.example.android.bakingtime.data.Recipes.Recipe;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +35,9 @@ public class RecipeIngredientsWidgetConfigureActivity extends Activity {
     private AppWidgetManager widgetManager;
     private RemoteViews remoteViews;
     private String selectedRecipeName;
+    private String ingredientName;
+    private String ingredientQuantity;
+    private String ingredientMeasure;
     @Nullable
     @BindView(R.id.recipes_spinner)
     Spinner spinner;
@@ -47,7 +51,7 @@ public class RecipeIngredientsWidgetConfigureActivity extends Activity {
     }
 
     @Override
-    public void onCreate(Bundle icicle) {
+    public void onCreate(final Bundle icicle) {
         super.onCreate(icicle);
 
         // Set the result to CANCELED.  This will cause the widget host to cancel
@@ -104,7 +108,7 @@ public class RecipeIngredientsWidgetConfigureActivity extends Activity {
             btnCreate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    List ingredientsForSelectedRecipe;
+                    ArrayList <Ingredients> ingredientsForSelectedRecipe = null;
                     // Getting the ingredients for a selected recipe
                     if (recipeList != null) {
                         for (int i = 0; i < recipeList.size(); i++) {
@@ -133,6 +137,18 @@ public class RecipeIngredientsWidgetConfigureActivity extends Activity {
                     remoteViews.setEmptyView(R.id.ingredients_list_widget, R.id.empty_view);
                     // Setting the recipe name as a header of the widget
                     remoteViews.setTextViewText(R.id.recipe_name_in_widget, selectedRecipeName);
+
+                    // works, except updating the content
+                    // TODO: Have to figure out how to update the content of the widget from here
+                    // Creating an intent pointing to the configuration activity
+                    Intent configIntent = new Intent(getApplicationContext(), RecipeIngredientsWidgetConfigureActivity.class);
+                    // Create an extra giving the App Widget Id
+                    configIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
+                    // Create a pending intent  giving configIntent as a parameter
+                    PendingIntent configPendingIntent = PendingIntent.getActivity(RecipeIngredientsWidgetConfigureActivity.this, 0, configIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    // Setting the pending intent on the view
+                    remoteViews.setOnClickPendingIntent(R.id.widget_settings_button, configPendingIntent);
+
                     // Updating the widget
                     widgetManager.updateAppWidget(mAppWidgetId, remoteViews);
 
@@ -144,7 +160,6 @@ public class RecipeIngredientsWidgetConfigureActivity extends Activity {
                 }
             });
         }
-
 
     }
 }

@@ -42,7 +42,8 @@
                 android:resource="@xml/recipe_ingredients_widget_provider_info" />
         </receiver>
 
-        <activity android:name=".widget.RecipeIngredientsWidgetConfigureActivity">
+        <activity android:name=".widget.RecipeIngredientsWidgetConfigureActivity"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
