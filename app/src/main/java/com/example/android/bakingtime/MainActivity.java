@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String json = gson.toJson(mRecipeList);
                 editor.putString("recipeList", json);
-                editor.commit();
+                editor.apply();
 
                 // Setting the list to a new RecipeAdapter
                 mRecipeAdapter = new RecipeAdapter(getBaseContext(), mRecipeList);
@@ -216,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             // Setting the error message to be invisible
             mErrorMessageTextView.setVisibility(View.INVISIBLE);
+            mRecipeRecyclerView.setVisibility(View.VISIBLE);
             // Loading the recipes using Retrofit2
             loadRecipesFromJSON();
         }

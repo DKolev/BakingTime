@@ -135,7 +135,7 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
 
     private void showOrHideThePlayer() {
         // Checking if the step has a video
-        if (mStepList.get(mPosition).getVideoURL().contains("mp4")) {
+        if (mStepList.get(mPosition).getVideoURL().contains(getString(R.string.mp4))) {
 
             // If it does, showing the mPlayerView and removing the oven image as well as the videoURL
             mPlayerView.setVisibility(View.VISIBLE);
@@ -148,9 +148,9 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
             // Initializing the mediaSession
             initializeMediaSession();
 
-            // If the step description contains the word "oven"
-        } else if (mStepList.get(mPosition).getDescription().contains("oven")) {
-            // Showing the image and removing the mPlayerView
+            // If the step description contains the word "Preheat"
+        } else if (mStepList.get(mPosition).getDescription().contains(getString(R.string.preheat))) {
+            // Showing the image of the oven and removing the mPlayerView
             mOvenImageView.setVisibility(View.VISIBLE);
             mPlayerView.setVisibility(View.GONE);
 

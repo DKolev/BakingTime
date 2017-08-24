@@ -19,6 +19,13 @@
     <string name="click_the_button_to_show_the_ingredients">Click the button to show the ingredients</string>
     <string name="ingredients">Ingredients</string>
     <string name="check_your_connection">Check your connection.</string>
+    <string name="nutella_pie">Nutella Pie</string>
+    <string name="brownies">Brownies</string>
+    <string name="yellow_cake">Yellow Cake</string>
+    <string name="cheesecake">Cheesecake</string>
+    <string name="preheat">Preheat</string>
+    <string name="mp4">mp4</string>
+    <string name="widget_settings_button">Widget settings button</string>
 
 
 </resources>

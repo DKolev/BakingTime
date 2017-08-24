@@ -27,11 +27,6 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
 
     private ArrayList<Steps> mRecipeStepsList;
     private Context mContext;
-    private int selectedPosition = -1;
-
-//    // trying the item selection highlight
-//    private SparseBooleanArray selectedItems;
-
 
     public RecipeStepsAdapter(Context context, ArrayList<Steps> steps) {
         this.mContext = context;
@@ -99,13 +94,4 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
         }
     }
 
-
-//    public void toggleSelection(int position) {
-//        if (selectedItems.get(position, false)) {
-//            selectedItems.delete(position);
-//        } else {
-//            selectedItems.put(position, true);
-//        }
-//        notifyItemChanged(position);
-//    }
 }

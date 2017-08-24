@@ -25,8 +25,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     private ArrayList<Recipe> mRecipeList;
     private Context mContext;
-    private int selected_position = 0;
-
 
     public RecipeAdapter(Context context, ArrayList<Recipe> recipe) {
         this.mRecipeList = recipe;
@@ -55,8 +53,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.recipe_name)
         TextView name;
-        //        @BindView(R.id.recipe_image)
-//        ImageView image;
         public final View mView;
 
 

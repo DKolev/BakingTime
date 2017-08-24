@@ -65,12 +65,6 @@ public class RecipeDetailFragment extends Fragment {
         // Getting the ingredients list
         mIngredientsList = this.mRecipe.getIngredients();
 
-
-//            Activity activity = this.getActivity();
-//            CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
-//            if (appBarLayout != null) {
-//                appBarLayout.setTitle(mRecipe.getName());
-//            }
     }
 
 

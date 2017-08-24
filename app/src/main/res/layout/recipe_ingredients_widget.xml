@@ -26,10 +26,11 @@
                 android:textColor="@android:color/white"
                 android:textSize="25sp"
                 android:textStyle="bold"
-                tools:text="Nutella Pie" />
+                tools:text="Recipe name" />
 
             <ImageButton
                 android:id="@+id/widget_settings_button"
+                android:contentDescription="@string/widget_settings_button"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="@dimen/widget_settings_button_height"

@@ -57,9 +57,6 @@ public class RecipeIngredientsWidgetConfigureActivity extends Activity {
         setContentView(R.layout.recipe_ingredients_widget_configure);
         ButterKnife.bind(this);
 
-
-        // my code
-
         // Getting the recipeList from SharedPrefs
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         Gson gson = new Gson();
@@ -71,14 +68,18 @@ public class RecipeIngredientsWidgetConfigureActivity extends Activity {
         ArrayList<String> recipes = new ArrayList<>();
 
         // Adding the name to the list
-        for (int i = 0; i < recipeList.size(); i++) {
-            recipes.add(recipeList.get(i).getName());
+        if (recipeList != null) {
+            for (int i = 0; i < recipeList.size(); i++) {
+                recipes.add(recipeList.get(i).getName());
+            }
         }
 
         // Creating a new ArrayAdapter with each recipe name
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, recipes);
         // Setting the adapter to the spinner
-        spinner.setAdapter(adapter);
+        if (spinner != null) {
+            spinner.setAdapter(adapter);
+        }
 
         //initializing RemoteViews and AppWidgetManager
         widgetManager = AppWidgetManager.getInstance(this);
@@ -99,46 +100,50 @@ public class RecipeIngredientsWidgetConfigureActivity extends Activity {
         }
 
         // Setting onClickListener on the addWidget button
-        btnCreate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                List ingredientsForSelectedRecipe;
-                // Getting the ingredients for a selected recipe
-                for (int i = 0; i < recipeList.size(); i++) {
-                    if (spinner.getSelectedItemPosition() == i) {
-                        ingredientsForSelectedRecipe = recipeList.get(i).getIngredients();
+        if (btnCreate != null) {
+            btnCreate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    List ingredientsForSelectedRecipe;
+                    // Getting the ingredients for a selected recipe
+                    if (recipeList != null) {
+                        for (int i = 0; i < recipeList.size(); i++) {
+                            if (spinner.getSelectedItemPosition() == i) {
+                                ingredientsForSelectedRecipe = recipeList.get(i).getIngredients();
 
-                        // Getting the recipe name
-                        selectedRecipeName = recipeList.get(i).getName();
+                                // Getting the recipe name
+                                selectedRecipeName = recipeList.get(i).getName();
 
-                        // Saving the ingredients for the selected recipe in SharedPreferences
-                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        Gson gson = new Gson();
-                        String json = gson.toJson(ingredientsForSelectedRecipe);
-                        editor.putString("ingredientsForSelectedRecipe", json);
-                        editor.commit();
+                                // Saving the ingredients for the selected recipe in SharedPreferences
+                                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                Gson gson = new Gson();
+                                String json = gson.toJson(ingredientsForSelectedRecipe);
+                                editor.putString("ingredientsForSelectedRecipe", json);
+                                editor.apply();
+                            }
+                        }
                     }
+
+                    // Setting the intent that starts MyWidgetRemoteViewService
+                    Intent intent1 = new Intent(getApplicationContext(), MyWidgetRemoteViewsService.class);
+                    // Setting up the RemoteViews adapter to the RemoteViews object
+                    remoteViews.setRemoteAdapter(R.id.ingredients_list_widget, intent1);
+                    // Setting up the emptyView
+                    remoteViews.setEmptyView(R.id.ingredients_list_widget, R.id.empty_view);
+                    // Setting the recipe name as a header of the widget
+                    remoteViews.setTextViewText(R.id.recipe_name_in_widget, selectedRecipeName);
+                    // Updating the widget
+                    widgetManager.updateAppWidget(mAppWidgetId, remoteViews);
+
+                    // Set the results
+                    Intent resultValue = new Intent();
+                    resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
+                    setResult(RESULT_OK, resultValue);
+                    finish();
                 }
-
-                // Setting the intent that starts MyWidgetRemoteViewService
-                Intent intent1 = new Intent(getApplicationContext(), MyWidgetRemoteViewsService.class);
-                // Setting up the RemoteViews adapter to the RemoteViews object
-                remoteViews.setRemoteAdapter(R.id.ingredients_list_widget, intent1);
-                // Setting up the emptyView
-                remoteViews.setEmptyView(R.id.ingredients_list_widget, R.id.empty_view);
-                // Setting the recipe name as a header of the widget
-                remoteViews.setTextViewText(R.id.recipe_name_in_widget, selectedRecipeName);
-                // Updating the widget
-                widgetManager.updateAppWidget(mAppWidgetId, remoteViews);
-
-                // Set the results
-                Intent resultValue = new Intent();
-                resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
-                setResult(RESULT_OK, resultValue);
-                finish();
-            }
-        });
+            });
+        }
 
 
     }

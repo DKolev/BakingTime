@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.example.android.bakingtime.data.Ingredients.Ingredients;
 import com.example.android.bakingtime.data.Recipes.Recipe;
@@ -35,6 +36,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
     private ArrayList<Steps> mStepsList;
     private ArrayList<Ingredients> mIngredientsList;
     private RecipeStepsAdapter mRecipeStepsAdapter;
+    private String mRecipeName;
 
     public static final String ARG_RECIPE_ID = "recipe_id";
 
@@ -42,6 +44,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
     RecyclerView mRecipeStepsListRecyclerView;
     @BindView(R.id.card_view_ingredients)
     CardView mIngredientsCardView;
+    @BindView(R.id.recipe_image)
+    ImageView mRecipeImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,21 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
         // Getting the ingredients list
         mIngredientsList = this.mRecipe.getIngredients();
+
+        // Getting the recipe name
+        mRecipeName = mRecipe.getName();
+
+        // Getting the recipe image
+        if (mRecipeName.contains(getString(R.string.nutella_pie))) {
+            mRecipeImage.setImageResource(R.drawable.nutella_pie);
+        } else if (mRecipeName.contains(getString(R.string.brownies))) {
+            mRecipeImage.setImageResource(R.drawable.brownies);
+        } else if (mRecipeName.contains(getString(R.string.yellow_cake))) {
+            mRecipeImage.setImageResource(R.drawable.yellow_cake);
+        } else if (mRecipeName.contains(getString(R.string.cheesecake))) {
+            mRecipeImage.setImageResource(R.drawable.cheesecake);
+        }
+
 
         if (MainActivity.mTwoPane) {
             RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment();
@@ -121,6 +140,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(mRecipeName);
         }
     }
 
@@ -139,4 +159,5 @@ public class RecipeDetailActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
