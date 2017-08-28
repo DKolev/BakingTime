@@ -229,14 +229,6 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
         super.onSaveInstanceState(outState);
     }
 
-
-    // TODO (in a tablet mode)
-    // the clicked step should change it's background
-    // !!! working but it doesn't stay highlighted permanently!!!
-
-    //ExoPlayer works now
-    // TODO taping the Home button and then going back to the app doesn't resume the video
-
     private void initializePlayer() {
         // Create an instance of the ExoPlayer
         TrackSelector trackSelector = new DefaultTrackSelector();
