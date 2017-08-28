@@ -63,10 +63,14 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
     TextView mStepDescriptionTextView;
     @BindView(R.id.oven_image)
     ImageView mOvenImageView;
+
+    @Nullable
     @BindView(R.id.step_number)
     TextView mStepNumber;
+    @Nullable
     @BindView(R.id.total_steps)
     TextView mTotalSteps;
+    @Nullable
     @BindView(R.id.steps_separator)
     TextView mStepsSeparator;
 
@@ -112,8 +116,12 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
 
         if (savedInstanceState != null) {
             mPosition = savedInstanceState.getInt("position");
-            mStepNumber.setText(String.valueOf(mPosition));
-            mTotalSteps.setText(String.valueOf(mStepList.size() - 1));
+            if (mStepNumber != null) {
+                mStepNumber.setText(String.valueOf(mPosition));
+            }
+            if (mTotalSteps != null) {
+                mTotalSteps.setText(String.valueOf(mStepList.size() - 1));
+            }
             mStepDescriptionTextView.setText(savedInstanceState.getString("description"));
             mStepVideoURLTextView.setText(savedInstanceState.getString("videoUrl"));
         } else {
@@ -122,8 +130,12 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
             mStepVideoURLTextView.setText(mStepList.get(mPosition).getVideoURL());
             mStepThumbnailUrlTextView.setText(mStepList.get(mPosition).getThumbnailURL());
 
-            mStepNumber.setText(String.valueOf(mPosition));
-            mTotalSteps.setText(String.valueOf(mStepList.size() - 1));
+            if (mStepNumber != null) {
+                mStepNumber.setText(String.valueOf(mPosition));
+            }
+            if (mTotalSteps != null) {
+                mTotalSteps.setText(String.valueOf(mStepList.size() - 1));
+            }
 
 //            Toast.makeText(getContext(), "position is " + mPosition, Toast.LENGTH_SHORT).show();
         }
@@ -140,7 +152,7 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
             // If it does, showing the mPlayerView and removing the oven image as well as the videoURL
             mPlayerView.setVisibility(View.VISIBLE);
             mOvenImageView.setVisibility(View.GONE);
-//            mStepVideoURLTextView.setVisibility(View.GONE);
+            mStepVideoURLTextView.setVisibility(View.GONE);
 
             // Initializing the player
             initializePlayer();
@@ -167,7 +179,9 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
     public void nextStep() {
         if (mPosition < mStepList.size() - 1) {
             mPosition++;
-            mStepNumber.setText(String.valueOf(mPosition));
+            if (mStepNumber != null) {
+                mStepNumber.setText(String.valueOf(mPosition));
+            }
             mStepVideoURLTextView.setText(mStepList.get(mPosition).getVideoURL());
 
 
@@ -192,7 +206,9 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
             Toast.makeText(getContext(), "That's the first step", Toast.LENGTH_SHORT).show();
         } else {
             mPosition--;
-            mStepNumber.setText(String.valueOf(mPosition));
+            if (mStepNumber != null) {
+                mStepNumber.setText(String.valueOf(mPosition));
+            }
             mStepVideoURLTextView.setText(mStepList.get(mPosition).getVideoURL());
         }
         // Releasing the player with the previous video

@@ -38,7 +38,6 @@
             style="@style/ExoMediaButton.Pause"
             android:contentDescription="@string/exoplayer_pause_button" />
 
-
     </LinearLayout>
 
     <LinearLayout

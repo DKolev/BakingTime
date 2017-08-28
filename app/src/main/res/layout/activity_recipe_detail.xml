@@ -24,6 +24,7 @@
             app:toolbarId="@+id/toolbar">
 
             <ImageView
+                android:contentDescription="@string/recipe_image_content_description"
                 android:id="@+id/recipe_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -41,7 +42,6 @@
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
-
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"

@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
                 >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
-
 
         if (savedInstanceState != null) {
             mRecipeList = savedInstanceState.getParcelableArrayList(RECIPES_LIST);
@@ -149,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL_FOR_RETROFIT)
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(OkHttpProvider.getOkHttpInstance())
                 .build();
 
         RequestInterface requestInterface = retrofit.create(RequestInterface.class);

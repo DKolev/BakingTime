@@ -36,5 +36,6 @@
         <include layout="@layout/step_list" />
 
     </LinearLayout>
+
 </FrameLayout>
 

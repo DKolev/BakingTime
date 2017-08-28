@@ -26,6 +26,7 @@
     <string name="preheat">Preheat</string>
     <string name="mp4">mp4</string>
     <string name="widget_settings_button">Widget settings button</string>
+    <string name="recipe_image_content_description">Recipe image</string>
 
 
 </resources>

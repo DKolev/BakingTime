@@ -35,9 +35,7 @@ public class RecipeIngredientsWidgetConfigureActivity extends Activity {
     private AppWidgetManager widgetManager;
     private RemoteViews remoteViews;
     private String selectedRecipeName;
-    private String ingredientName;
-    private String ingredientQuantity;
-    private String ingredientMeasure;
+
     @Nullable
     @BindView(R.id.recipes_spinner)
     Spinner spinner;

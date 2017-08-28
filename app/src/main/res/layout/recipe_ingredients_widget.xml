@@ -63,4 +63,5 @@
         android:text="@string/no_ingredients_to_display"
         android:textSize="24sp"
         android:textStyle="bold|italic" />
+
 </FrameLayout>

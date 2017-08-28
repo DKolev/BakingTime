@@ -43,11 +43,6 @@
             android:visibility="visible"
             tools:text="Cups" />
 
-
-
-
     </LinearLayout>
-
-
 
 </LinearLayout>

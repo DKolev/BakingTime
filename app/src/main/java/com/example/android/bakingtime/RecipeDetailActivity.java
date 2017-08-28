@@ -2,6 +2,7 @@ package com.example.android.bakingtime;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -30,7 +31,7 @@ import butterknife.ButterKnife;
  * item details are presented side-by-side with a list of items
  * in a {@link MainActivity}.
  */
-public class RecipeDetailActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener{
+public class RecipeDetailActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener {
 
     public static Recipe mRecipe;
     private ArrayList<Steps> mStepsList;
@@ -44,6 +45,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements FragmentM
     RecyclerView mRecipeStepsListRecyclerView;
     @BindView(R.id.card_view_ingredients)
     CardView mIngredientsCardView;
+    @Nullable
     @BindView(R.id.recipe_image)
     ImageView mRecipeImage;
 
@@ -80,7 +82,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements FragmentM
             mRecipeName = mRecipe.getName();
         }
 
-        // Getting the recipe image
+        // Setting the recipe image (both phone and tablet)
         if (mRecipeName.contains(getString(R.string.nutella_pie))) {
             mRecipeImage.setImageResource(R.drawable.nutella_pie);
         } else if (mRecipeName.contains(getString(R.string.brownies))) {
@@ -158,12 +160,12 @@ public class RecipeDetailActivity extends AppCompatActivity implements FragmentM
         int id = item.getItemId();
         if (id == android.R.id.home) {
             // If there are fragments in the BackStack the button navigates to the previous one
-            if (getSupportFragmentManager().getBackStackEntryCount()>0) {
+            if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
                 getSupportFragmentManager().popBackStack();
             }
             // otherwise, back to the MainActivity
             else {
-            navigateUpTo(new Intent(this, MainActivity.class));
+                navigateUpTo(new Intent(this, MainActivity.class));
             }
             return true;
         }
