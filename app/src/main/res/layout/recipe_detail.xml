@@ -5,10 +5,10 @@
     android:name="com.example.android.bakingtime.MainFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="@dimen/recipe_details_recycler_view_margin_left"
-    android:layout_marginStart="@dimen/recipe_details_recycler_view_margin_left"
-    android:layout_marginRight="@dimen/recipe_details_recycler_view_margin_right"
     android:layout_marginEnd="@dimen/recipe_details_recycler_view_margin_right"
+    android:layout_marginLeft="@dimen/recipe_details_recycler_view_margin_left"
+    android:layout_marginRight="@dimen/recipe_details_recycler_view_margin_right"
+    android:layout_marginStart="@dimen/recipe_details_recycler_view_margin_left"
     app:layoutManager="LinearLayoutManager"
     tools:context="com.example.android.bakingtime.MainActivity"
     tools:listitem="@layout/recipe_list_content" />

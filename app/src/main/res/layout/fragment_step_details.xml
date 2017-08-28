@@ -39,10 +39,10 @@
                 </com.google.android.exoplayer2.ui.SimpleExoPlayerView>
 
                 <ImageView
-                    android:contentDescription="@string/oven_image"
                     android:id="@+id/oven_image"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/exo_player_view_height"
+                    android:contentDescription="@string/oven_image"
                     android:src="@drawable/oven"
                     android:visibility="gone" />
 
@@ -84,10 +84,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/previous_step_button"
-                    android:layout_toLeftOf="@+id/next_step_button"
-                    android:layout_toStartOf="@+id/next_step_button"
                     android:layout_toEndOf="@+id/previous_step_button"
+                    android:layout_toLeftOf="@+id/next_step_button"
                     android:layout_toRightOf="@+id/previous_step_button"
+                    android:layout_toStartOf="@+id/next_step_button"
                     android:orientation="horizontal">
 
                     <TextView
@@ -107,8 +107,8 @@
                         android:layout_margin="@dimen/step_numbers_layout_margin"
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
-                        android:textSize="25sp"
-                        android:text="@string/step_separator" />
+                        android:text="@string/step_separator"
+                        android:textSize="25sp" />
 
                     <TextView
                         android:id="@+id/total_steps"
@@ -126,13 +126,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:text="@string/next_button" />
 
             </RelativeLayout>
         </LinearLayout>
-
 
     </android.support.v7.widget.CardView>
 

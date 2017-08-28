@@ -1,28 +1,36 @@
 <resources>
     <string name="app_name">BakingTime</string>
+
     <string name="title_recipe_detail">Recipe Details</string>
     <string name="title_step_detail">Step Details</string>
     <string name="title_ingredients">Ingredients</string>
+
     <string name="please_select_a_recipe">Please select a recipe step to see details about it.</string>
+
     <string name="exoplayer_skip_to_previous">ExoPlayer: skip to previous</string>
     <string name="exoplayer_play_button">ExoPlayer: play button</string>
     <string name="exoplayer_pause_button">ExoPlayer: pause button</string>
+
     <string name="oven_image">Oven image</string>
     <string name="previous_button">Previous</string>
     <string name="step_separator">/</string>
     <string name="next_button">Next</string>
+
     <string name="appwidget_text">EXAMPLE</string>
     <string name="configure">Configure</string>
     <string name="add_widget">Add widget</string>
     <string name="no_ingredients_to_display">No ingredients to display</string>
     <string name="choose_a_recipe">Choose a recipe</string>
     <string name="click_the_button_to_show_the_ingredients">Click the button to show the ingredients</string>
+
     <string name="ingredients">Ingredients</string>
     <string name="check_your_connection">Check your connection.</string>
+
     <string name="nutella_pie">Nutella Pie</string>
     <string name="brownies">Brownies</string>
     <string name="yellow_cake">Yellow Cake</string>
     <string name="cheesecake">Cheesecake</string>
+
     <string name="preheat">Preheat</string>
     <string name="mp4">mp4</string>
     <string name="widget_settings_button">Widget settings button</string>

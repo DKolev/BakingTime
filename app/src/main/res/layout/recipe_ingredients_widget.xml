@@ -1,7 +1,6 @@
-<FrameLayout
-    android:id="@+id/widget"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/widget"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/widget_margin">
@@ -30,14 +29,14 @@
 
             <ImageButton
                 android:id="@+id/widget_settings_button"
-                android:contentDescription="@string/widget_settings_button"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="@dimen/widget_settings_button_height"
-                android:paddingTop="@dimen/widget_settings_button_padding_top"
-                android:paddingBottom="@dimen/widget_settings_button_padding_bottom"
+                android:layout_weight="1"
                 android:background="@color/colorPrimary"
-                android:src="@drawable/ic_settings_white_24dp"/>
+                android:contentDescription="@string/widget_settings_button"
+                android:paddingBottom="@dimen/widget_settings_button_padding_bottom"
+                android:paddingTop="@dimen/widget_settings_button_padding_top"
+                android:src="@drawable/ic_settings_white_24dp" />
 
         </LinearLayout>
 
@@ -45,9 +44,8 @@
             android:id="@+id/ingredients_list_widget"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:dividerHeight="@dimen/widget_list_view_divider_height"
-
-            android:background="@android:color/white">
+            android:background="@android:color/white"
+            android:dividerHeight="@dimen/widget_list_view_divider_height">
 
         </ListView>
 
