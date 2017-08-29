@@ -34,6 +34,7 @@ import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -61,8 +62,8 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
     TextView mStepThumbnailUrlTextView;
     @BindView(R.id.step_description)
     TextView mStepDescriptionTextView;
-    @BindView(R.id.oven_image)
-    ImageView mOvenImageView;
+    @BindView(R.id.recipe_step_image)
+    ImageView mRecipeStepImage;
 
     @Nullable
     @BindView(R.id.step_number)
@@ -105,6 +106,8 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
             }
         }
 
+        setRetainInstance(true);
+
     }
 
     @Override
@@ -146,30 +149,62 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
     }
 
     private void showOrHideThePlayer() {
-        // Checking if the step has a video
-        if (mStepList.get(mPosition).getVideoURL().contains(getString(R.string.mp4))) {
 
-            // If it does, showing the mPlayerView and removing the oven image as well as the videoURL
-            mPlayerView.setVisibility(View.VISIBLE);
-            mOvenImageView.setVisibility(View.GONE);
-            mStepVideoURLTextView.setVisibility(View.GONE);
+        String thumbnailUrl = mStepThumbnailUrlTextView.getText().toString();
 
-            // Initializing the player
-            initializePlayer();
-
-            // Initializing the mediaSession
-            initializeMediaSession();
-
-            // If the step description contains the word "Preheat"
-        } else if (mStepList.get(mPosition).getDescription().contains(getString(R.string.preheat))) {
-            // Showing the image of the oven and removing the mPlayerView
-            mOvenImageView.setVisibility(View.VISIBLE);
+        // If there is a step image for this step in the JSON data but no video
+        if (thumbnailUrl.length() > 0) {
+            // Loading the image using Picasso
+            Picasso.with(getContext()).load(thumbnailUrl).into(mRecipeStepImage);
+            // Making the image view and hiding the player and the text view
+            mRecipeStepImage.setVisibility(View.VISIBLE);
             mPlayerView.setVisibility(View.GONE);
+            // If there is a video as well as step image, showing both views
+            if (mStepList.get(mPosition).getVideoURL().contains(getString(R.string.mp4))) {
+                mPlayerView.setVisibility(View.VISIBLE);
+                mRecipeStepImage.setVisibility(View.VISIBLE);
+                mStepVideoURLTextView.setVisibility(View.GONE);
 
-            // If there is no video or oven, removing both views and showing just the step description
+                // Initializing the player
+                initializePlayer();
+
+                // Initializing the mediaSession
+                initializeMediaSession();
+            }
+            // If the step description contains the word "Preheat" showing the
+            // image of the oven and removing the mPlayerView
+            if (mStepList.get(mPosition).getDescription().contains(getString(R.string.preheat))) {
+                mRecipeStepImage.setImageResource(R.drawable.oven);
+                mRecipeStepImage.setVisibility(View.VISIBLE);
+                mPlayerView.setVisibility(View.GONE);
+            }
         } else {
-            mPlayerView.setVisibility(View.GONE);
-            mStepVideoURLTextView.setVisibility(View.GONE);
+            // If there isn't a step image in the JSON data I'm checking if the step has just a video
+            if (mStepList.get(mPosition).getVideoURL().contains(getString(R.string.mp4))) {
+
+                // If it does, showing the mPlayerView and removing the oven image as well as the videoURL
+                mPlayerView.setVisibility(View.VISIBLE);
+                mRecipeStepImage.setVisibility(View.GONE);
+                mStepVideoURLTextView.setVisibility(View.GONE);
+
+                // Initializing the player
+                initializePlayer();
+
+                // Initializing the mediaSession
+                initializeMediaSession();
+
+            } else if (mStepList.get(mPosition).getDescription().contains(getString(R.string.preheat))) {
+                // If the step description contains the word "Preheat"
+                // Showing the image of the oven and removing the mPlayerView
+                mRecipeStepImage.setImageResource(R.drawable.oven);
+                mRecipeStepImage.setVisibility(View.VISIBLE);
+                mPlayerView.setVisibility(View.GONE);
+
+                // If there is no step image, video or oven, removing both views and showing just the step description
+            } else {
+                mPlayerView.setVisibility(View.GONE);
+                mStepVideoURLTextView.setVisibility(View.GONE);
+            }
         }
     }
 
