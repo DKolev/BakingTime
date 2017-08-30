@@ -120,6 +120,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This method refreshes the recipe list when swipe-refresh gesture is invoked
+     */
     private void refreshRecipeList() {
         // Getting a reference to the ConnectivityManager to check state of network connectivity
         mConnectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -201,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /***
-     * This method loads the recipes using Retrofit2 (bu default) or uses the mRecipeList if it is
+     * This method loads the recipes using Retrofit2 (by default) or uses the mRecipeList if it is
      * already populated in onSaveInstanceState
      */
 

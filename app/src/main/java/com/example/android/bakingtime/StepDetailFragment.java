@@ -151,6 +151,10 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
         return rootView;
     }
 
+    /**
+     * This method handles the visibility of the recipe image view and the player view for each step
+     * based on what's available in the JSON data
+     */
     private void showOrHideThePlayer() {
 
         String thumbnailUrl = mStepThumbnailUrlTextView.getText().toString();
@@ -223,6 +227,10 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
     }
 
     // Moving between recipes works!
+
+    /**
+     * Shows the next step when the next button is clicked
+     */
     @Optional
     @OnClick(R.id.next_step_button)
     public void nextStep() {
@@ -248,6 +256,9 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
 
     }
 
+    /**
+     * Shows the previous step when the previous button is clicked
+     */
     @Optional
     @OnClick(R.id.previous_step_button)
     public void previousStep() {
@@ -279,6 +290,9 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
         super.onSaveInstanceState(outState);
     }
 
+    /**
+     * This method initializes the player
+     */
     private void initializePlayer() {
         if (mExoPlayer != null) {
             return;
