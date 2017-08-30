@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,7 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
     private int mPosition;
     private long mExoPlayerPosition;
     private MediaSessionCompat mMediaSession;
+    private SimpleExoPlayer mExoPlayer;
     private PlaybackStateCompat.Builder mStateBuilder;
 
 
@@ -84,7 +86,6 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
     @BindView(R.id.next_step_button)
     Button mNextStepButton;
 
-    private SimpleExoPlayer mExoPlayer;
     @BindView(R.id.playerView)
     SimpleExoPlayerView mPlayerView;
 
@@ -153,9 +154,10 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
     private void showOrHideThePlayer() {
 
         String thumbnailUrl = mStepThumbnailUrlTextView.getText().toString();
+        String videoUrl = mStepList.get(mPosition).getVideoURL();
 
         // If there is a step image for this step in the JSON data but no video
-        if (thumbnailUrl.length() > 0) {
+        if (!TextUtils.isEmpty(thumbnailUrl)) {
             // Loading the image using Picasso
             Picasso.with(getContext()).load(thumbnailUrl).into(mRecipeStepImage);
             // Making the image view visible and hiding the player and the text view
@@ -183,9 +185,9 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
             }
         } else {
             // If there isn't a step image in the JSON data I'm checking if the step has just a video
-            if (mStepList.get(mPosition).getVideoURL().contains(getString(R.string.mp4))) {
+            if (!TextUtils.isEmpty(videoUrl)) {
 
-                // If it does, showing the mPlayerView and removing the oven image as well as the videoURL
+                // If it does, showing the mPlayerView and removing the step image as well as the videoURL
                 mPlayerView.setVisibility(View.VISIBLE);
                 mRecipeStepImage.setVisibility(View.GONE);
                 mStepVideoURLTextView.setVisibility(View.GONE);
@@ -196,17 +198,26 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
                 // Initializing the mediaSession
                 initializeMediaSession();
 
-            } else if (mStepList.get(mPosition).getDescription().contains(getString(R.string.preheat))) {
-                // If the step description contains the word "Preheat"
-                // Showing the image of the oven and removing the mPlayerView
-                mRecipeStepImage.setImageResource(R.drawable.oven);
-                mRecipeStepImage.setVisibility(View.VISIBLE);
-                mPlayerView.setVisibility(View.GONE);
-
-                // If there is no step image, video or oven, removing both views and showing just the step description
-            } else {
-                mPlayerView.setVisibility(View.GONE);
-                mStepVideoURLTextView.setVisibility(View.GONE);
+            } else if (TextUtils.isEmpty(videoUrl)) {
+                // If there is no video url but an image url
+                if (!TextUtils.isEmpty(thumbnailUrl)) {
+                    // Loading the image using Picasso
+                    Picasso.with(getContext()).load(thumbnailUrl).into(mRecipeStepImage);
+                    // Hiding the player view
+                    mPlayerView.setVisibility(View.GONE);
+                } else if (mStepList.get(mPosition).getDescription().contains("Preheat")){
+                    // If there is a word "Preheat" in the description, show the oven image
+                    // The idea is this image to show only with a description where it is appropriate
+                    // Hide the player
+                    mPlayerView.setVisibility(View.GONE);
+                    // Load the oven image
+                    mRecipeStepImage.setImageResource(R.drawable.oven);
+                    // Make the view visible
+                    mRecipeStepImage.setVisibility(View.VISIBLE);
+                } else {
+                    // Hide the player view
+                    mPlayerView.setVisibility(View.GONE);
+                }
             }
         }
     }
@@ -269,6 +280,9 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
     }
 
     private void initializePlayer() {
+        if (mExoPlayer != null) {
+            return;
+        }
         // Create an instance of the ExoPlayer
         TrackSelector trackSelector = new DefaultTrackSelector();
         LoadControl loadControl = new DefaultLoadControl();
@@ -404,6 +418,9 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
 
     @Override
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+        if (mExoPlayer == null || mMediaSession == null) {
+            return;
+        }
         if ((playbackState == ExoPlayer.STATE_READY) && playWhenReady) {
             // We are playing
             mStateBuilder.setState(PlaybackStateCompat.STATE_PLAYING,

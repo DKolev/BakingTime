@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.bakingtime.data.Recipes.Recipe;
 import com.example.android.bakingtime.data.Recipes.RecipeAdapter;
@@ -179,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Recipe>> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Something went wrong while fetching data. Please try again.", Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
             }
         });

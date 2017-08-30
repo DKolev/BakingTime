@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         holder.name.setText(recipeName);
 
         String recipeImageUrl = mRecipeList.get(position).getImage();
-        if (recipeImageUrl.length() > 0) {
+        if (!TextUtils.isEmpty(recipeImageUrl)) {
             Picasso.with(mContext).load(recipeImageUrl).into(holder.mRecipeImageSmall);
         } else {
 
