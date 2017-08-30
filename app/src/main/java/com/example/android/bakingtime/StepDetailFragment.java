@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.bakingtime.data.Steps.Steps;
+import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlaybackException;
@@ -52,6 +53,7 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
     private String LOG_TAG = StepDetailFragment.class.getSimpleName();
     private ArrayList<Steps> mStepList;
     private int mPosition;
+    private long mExoPlayerPosition;
     private MediaSessionCompat mMediaSession;
     private PlaybackStateCompat.Builder mStateBuilder;
 
@@ -119,6 +121,7 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
 
         if (savedInstanceState != null) {
             mPosition = savedInstanceState.getInt("position");
+            mExoPlayerPosition = savedInstanceState.getLong("playerPosition", C.TIME_UNSET);
             if (mStepNumber != null) {
                 mStepNumber.setText(String.valueOf(mPosition));
             }
@@ -140,7 +143,6 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
                 mTotalSteps.setText(String.valueOf(mStepList.size() - 1));
             }
 
-//            Toast.makeText(getContext(), "position is " + mPosition, Toast.LENGTH_SHORT).show();
         }
 
         showOrHideThePlayer();
@@ -156,10 +158,11 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
         if (thumbnailUrl.length() > 0) {
             // Loading the image using Picasso
             Picasso.with(getContext()).load(thumbnailUrl).into(mRecipeStepImage);
-            // Making the image view and hiding the player and the text view
+            // Making the image view visible and hiding the player and the text view
             mRecipeStepImage.setVisibility(View.VISIBLE);
             mPlayerView.setVisibility(View.GONE);
-            // If there is a video as well as step image, showing both views
+            mStepVideoURLTextView.setVisibility(View.GONE);
+            // If there is a video as well as a step image, showing both views
             if (mStepList.get(mPosition).getVideoURL().contains(getString(R.string.mp4))) {
                 mPlayerView.setVisibility(View.VISIBLE);
                 mRecipeStepImage.setVisibility(View.VISIBLE);
@@ -261,6 +264,7 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
         outState.putInt("position", mPosition);
         outState.putString("description", mStepDescriptionTextView.getText().toString());
         outState.putString("videoUrl", mStepVideoURLTextView.getText().toString());
+        outState.putLong("playerPosition", mExoPlayerPosition);
         super.onSaveInstanceState(outState);
     }
 
@@ -278,10 +282,15 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
 
         // Prepare the MediaSource
         Uri uri = Uri.parse(mStepVideoURLTextView.getText().toString());
-//            String userAgent = Util.getUserAgent(getContext(), getString(R.string.app_name));
         MediaSource mediaSource = buildMediaSource(uri);
+
+        // If the video is paused on rotation, skip to this position
+        if (mExoPlayerPosition != C.TIME_UNSET) {
+            mExoPlayer.seekTo(mExoPlayerPosition);
+        }
         mExoPlayer.prepare(mediaSource, true, false);
         mExoPlayer.prepare(mediaSource);
+
 
     }
 
@@ -311,8 +320,10 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
     public void onPause() {
         super.onPause();
         if (Util.SDK_INT <= 23) {
-            releasePlayer();
-//            mMediaSession.setActive(false);
+            if (mExoPlayer != null) {
+                mExoPlayerPosition = mExoPlayer.getCurrentPosition();
+                releasePlayer();
+            }
         }
     }
 
@@ -321,7 +332,6 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
         super.onStop();
         if (Util.SDK_INT > 23) {
             releasePlayer();
-//            mMediaSession.setActive(false);
         }
     }
 

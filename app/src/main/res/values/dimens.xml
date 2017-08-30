@@ -36,4 +36,6 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="recipe_name_card_view_width_w600dp">131dp</dimen>
     <dimen name="step_list_card_height">410dp</dimen>
     <dimen name="refresh_button_padding">10dp</dimen>
+    <dimen name="recipe_image_small_height_width">50dp</dimen>
+    <dimen name="recipe_image_small_margin">5dp</dimen>
 </resources>

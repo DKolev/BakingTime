@@ -17,10 +17,14 @@
         app:cardUseCompatPadding="true"
         app:contentPadding="@dimen/card_content_padding">
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
         <LinearLayout
             android:id="@+id/step_details"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="@dimen/card_view_layout_margin"
             android:orientation="vertical">
 
@@ -28,7 +32,8 @@
                 android:id="@+id/playerView"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/exo_player_view_height"
-                android:layout_marginBottom="@dimen/margin_bottom">
+                android:layout_marginBottom="@dimen/margin_bottom"
+                app:resize_mode="fit">
 
             </com.google.android.exoplayer2.ui.SimpleExoPlayerView>
 
@@ -38,27 +43,31 @@
                 android:layout_height="@dimen/exo_player_view_height"
                 android:contentDescription="@string/recipe_step_image"
                 android:layout_gravity="center_horizontal"
-                android:visibility="invisible" />
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/step_video_url"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="Video URL" />
+                tools:text="Video URL"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/step_thumbnail_url"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="Thumbnail URL" />
+                tools:text="Thumbnail URL"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/step_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 tools:text="Step Description" />
 
         </LinearLayout>
+        </ScrollView>
 
     </android.support.v7.widget.CardView>
 

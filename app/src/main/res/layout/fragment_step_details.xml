@@ -34,7 +34,8 @@
                     android:id="@+id/playerView"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/exo_player_view_height"
-                    android:layout_marginBottom="5dp"/>
+                    android:layout_marginBottom="5dp"
+                    app:resize_mode="fit"/>
 
                 <ImageView
                     android:id="@+id/recipe_step_image"
@@ -42,7 +43,7 @@
                     android:layout_height="@dimen/exo_player_view_height"
                     android:contentDescription="@string/recipe_step_image"
                     android:layout_gravity="center_horizontal"
-                    android:visibility="invisible" />
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/step_video_url"

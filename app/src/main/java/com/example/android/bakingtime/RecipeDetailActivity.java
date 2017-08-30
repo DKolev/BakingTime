@@ -159,11 +159,12 @@ public class RecipeDetailActivity extends AppCompatActivity implements FragmentM
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            // If there are fragments in the BackStack the button navigates to the previous one
-            if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            // If there are fragments in the BackStack and we are in phone mode
+            // the button navigates to the previous fragment
+            if (getSupportFragmentManager().getBackStackEntryCount() > 0 && !MainActivity.mTwoPane) {
                 getSupportFragmentManager().popBackStack();
             }
-            // otherwise, back to the MainActivity
+            // otherwise and when in tablet mode, back to the MainActivity
             else {
                 navigateUpTo(new Intent(this, MainActivity.class));
             }
