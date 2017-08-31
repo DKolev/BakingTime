@@ -36,8 +36,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements FragmentM
     private RecipeStepsAdapter mRecipeStepsAdapter;
     private String mRecipeName;
 
-    private RecipeDetailFragment mRecipeDetailsFragment;
-
     public static final String ARG_RECIPE_ID = "recipe_id";
 
     @BindView(R.id.steps_list)
@@ -55,11 +53,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements FragmentM
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
-        // testing
-        if (savedInstanceState != null) {
-            mRecipeDetailsFragment = (RecipeDetailFragment) getSupportFragmentManager().getFragment(savedInstanceState, "recipeDetailsFragment");
-
-        }
 
         //Listen for changes in the back stack
         getSupportFragmentManager().addOnBackStackChangedListener(this);
@@ -99,17 +92,17 @@ public class RecipeDetailActivity extends AppCompatActivity implements FragmentM
         }
 
         if (MainActivity.mTwoPane) {
-            mRecipeDetailsFragment = new RecipeDetailFragment();
+            RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.recipe_detail_container_tablet, mRecipeDetailsFragment)
+                    .replace(R.id.recipe_detail_container_tablet, recipeDetailFragment)
                     .commit();
 
         } else {
-            mRecipeDetailsFragment = new RecipeDetailFragment();
+            RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.recipe_detail_container_phone, mRecipeDetailsFragment)
+                    .replace(R.id.recipe_detail_container_phone, recipeDetailFragment)
                     .commit();
         }
 
@@ -119,13 +112,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements FragmentM
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(mRecipeName);
         }
-    }
-
-    // testing
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        getSupportFragmentManager().putFragment(outState, "recipeDetailsFragment", mRecipeDetailsFragment);
     }
 
     @Override

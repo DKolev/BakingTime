@@ -113,6 +113,8 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
 
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
