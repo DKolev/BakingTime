@@ -47,7 +47,6 @@ public class IngredientsFragment extends Fragment {
         setRetainInstance(true);
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -67,7 +66,6 @@ public class IngredientsFragment extends Fragment {
         mIngredientsRecyclerView.addItemDecoration(dividerItemDecoration);
 
         return rootView;
-
 
     }
 }

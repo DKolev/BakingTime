@@ -53,35 +53,37 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+            <include layout="@layout/fragment_steps" />
 
-                <android.support.v7.widget.CardView
-                    android:id="@+id/card_view_ingredients"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/card_view_layout_margin"
-                    app:cardCornerRadius="@dimen/corner_radius"
-                    app:cardElevation="@dimen/card_elevation"
-                    app:cardPreventCornerOverlap="false"
-                    app:cardUseCompatPadding="true"
-                    app:contentPadding="@dimen/card_content_padding">
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="vertical">-->
 
-                    <TextView
-                        android:id="@+id/ingredients"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/text_margin"
-                        android:text="@string/ingredients"
-                        android:textAppearance="?attr/textAppearanceListItem"
-                        android:visibility="visible" />
+                <!--<android.support.v7.widget.CardView-->
+                    <!--android:id="@+id/card_view_ingredients"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_margin="@dimen/card_view_layout_margin"-->
+                    <!--app:cardCornerRadius="@dimen/corner_radius"-->
+                    <!--app:cardElevation="@dimen/card_elevation"-->
+                    <!--app:cardPreventCornerOverlap="false"-->
+                    <!--app:cardUseCompatPadding="true"-->
+                    <!--app:contentPadding="@dimen/card_content_padding">-->
 
-                </android.support.v7.widget.CardView>
+                    <!--<TextView-->
+                        <!--android:id="@+id/ingredients"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_margin="@dimen/text_margin"-->
+                        <!--android:text="@string/ingredients"-->
+                        <!--android:textAppearance="?attr/textAppearanceListItem"-->
+                        <!--android:visibility="visible" />-->
 
-                <include layout="@layout/step_list" />
-            </LinearLayout>
+                <!--</android.support.v7.widget.CardView>-->
+
+                <!--<include layout="@layout/step_list" />-->
+            <!--</LinearLayout>-->
         </FrameLayout>
     </android.support.v4.widget.NestedScrollView>
 

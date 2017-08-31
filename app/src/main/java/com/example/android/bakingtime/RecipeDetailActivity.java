@@ -7,12 +7,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.example.android.bakingtime.data.Ingredients.Ingredients;
@@ -39,6 +36,8 @@ public class RecipeDetailActivity extends AppCompatActivity implements FragmentM
     private RecipeStepsAdapter mRecipeStepsAdapter;
     private String mRecipeName;
 
+    private RecipeDetailFragment mRecipeDetailsFragment;
+
     public static final String ARG_RECIPE_ID = "recipe_id";
 
     @BindView(R.id.steps_list)
@@ -55,6 +54,12 @@ public class RecipeDetailActivity extends AppCompatActivity implements FragmentM
         setContentView(R.layout.activity_recipe_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
+
+        // testing
+        if (savedInstanceState != null) {
+            mRecipeDetailsFragment = (RecipeDetailFragment) getSupportFragmentManager().getFragment(savedInstanceState, "recipeDetailsFragment");
+
+        }
 
         //Listen for changes in the back stack
         getSupportFragmentManager().addOnBackStackChangedListener(this);
@@ -93,67 +98,34 @@ public class RecipeDetailActivity extends AppCompatActivity implements FragmentM
             mRecipeImage.setImageResource(R.drawable.cheesecake);
         }
 
-
         if (MainActivity.mTwoPane) {
-            RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment();
+            mRecipeDetailsFragment = new RecipeDetailFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.recipe_detail_container_tablet, recipeDetailFragment)
+                    .replace(R.id.recipe_detail_container_tablet, mRecipeDetailsFragment)
                     .commit();
 
         } else {
-
-            // Creating a new Vertical LinearLayout manager
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-            // Setting it to the steps RecyclerView
-            mRecipeStepsListRecyclerView.setLayoutManager(layoutManager);
-
-            // Creating a new RecipeStepsAdapter
-            mRecipeStepsAdapter = new RecipeStepsAdapter(this, mStepsList);
-            mRecipeStepsAdapter.notifyDataSetChanged();
-            // Setting the adapter on the RecyclerView
-            mRecipeStepsListRecyclerView.setAdapter(mRecipeStepsAdapter);
-
-            // Adding a divider between the recipe steps
-            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecipeStepsListRecyclerView.getContext(),
-                    LinearLayoutManager.VERTICAL);
-            mRecipeStepsListRecyclerView.addItemDecoration(dividerItemDecoration);
-
-            // Setting onClickListener on the CardView
-            mIngredientsCardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // this is to replace the old fragment and not to start a new activity --WORKS--
-                    Bundle arguments = new Bundle();
-                    // Packing the ingredients list as a parcelable array list and sending it to the
-                    // IngredientsFragment as an arguments
-                    arguments.putParcelableArrayList("ingredients", mIngredientsList);
-
-                    // Creating a new IngredientsFragment
-                    IngredientsFragment ingredientsFragment = new IngredientsFragment();
-                    // Setting the passed arguments
-                    ingredientsFragment.setArguments(arguments);
-
-                    // Creating a new FragmentManager
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    // Replacing the container with the recipe details with one showing all
-                    // the necessary ingredients
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.recipe_detail_container_phone, ingredientsFragment)
-                            .addToBackStack(null)
-                            .commit();
-
-                }
-            });
-
-
+            mRecipeDetailsFragment = new RecipeDetailFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.recipe_detail_container_phone, mRecipeDetailsFragment)
+                    .commit();
         }
+
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(mRecipeName);
         }
+    }
+
+    // testing
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        getSupportFragmentManager().putFragment(outState, "recipeDetailsFragment", mRecipeDetailsFragment);
     }
 
     @Override

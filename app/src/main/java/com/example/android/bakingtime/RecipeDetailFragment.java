@@ -65,6 +65,8 @@ public class RecipeDetailFragment extends Fragment {
         // Getting the ingredients list
         mIngredientsList = this.mRecipe.getIngredients();
 
+        setRetainInstance(true);
+
     }
 
 
