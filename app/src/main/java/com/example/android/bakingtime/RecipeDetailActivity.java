@@ -91,19 +91,26 @@ public class RecipeDetailActivity extends AppCompatActivity implements FragmentM
             mRecipeImage.setImageResource(R.drawable.cheesecake);
         }
 
-        if (MainActivity.mTwoPane) {
-            RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.recipe_detail_container_tablet, recipeDetailFragment)
-                    .commit();
+        // If there is nothing in the backstack
+        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+            // And we are in tablet mode
+            if (MainActivity.mTwoPane) {
+                RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                // replacing the recipe_detail_container_tablet with a new recipeDetailFragment
+                fragmentManager.beginTransaction()
+                        .replace(R.id.recipe_detail_container_tablet, recipeDetailFragment)
+                        .commit();
 
-        } else {
-            RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.recipe_detail_container_phone, recipeDetailFragment)
-                    .commit();
+            } else {
+                // this is when we are in phone mode
+                RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                // replacing the recipe_detail_container_phone with a new recipeDetailFragment
+                fragmentManager.beginTransaction()
+                        .add(R.id.recipe_detail_container_phone, recipeDetailFragment)
+                        .commit();
+            }
         }
 
         // Show the Up button in the action bar.
