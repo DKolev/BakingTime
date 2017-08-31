@@ -139,12 +139,13 @@ public class RecipeDetailActivity extends AppCompatActivity implements FragmentM
                     // Replacing the container with the recipe details with one showing all
                     // the necessary ingredients
                     fragmentManager.beginTransaction()
-                            .add(R.id.recipe_detail_container_phone, ingredientsFragment)
+                            .replace(R.id.recipe_detail_container_phone, ingredientsFragment)
                             .addToBackStack(null)
                             .commit();
 
                 }
             });
+
 
         }
         // Show the Up button in the action bar.

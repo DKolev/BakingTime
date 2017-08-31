@@ -135,7 +135,6 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
 
             mStepDescriptionTextView.setText(mStepList.get(mPosition).getDescription());
             mStepVideoURLTextView.setText(mStepList.get(mPosition).getVideoURL());
-            mStepThumbnailUrlTextView.setText(mStepList.get(mPosition).getThumbnailURL());
 
             if (mStepNumber != null) {
                 mStepNumber.setText(String.valueOf(mPosition));
@@ -157,7 +156,7 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
      */
     private void showOrHideThePlayer() {
 
-        String thumbnailUrl = mStepThumbnailUrlTextView.getText().toString();
+        String thumbnailUrl = mStepList.get(mPosition).getThumbnailURL();
         String videoUrl = mStepList.get(mPosition).getVideoURL();
 
         // If there is a step image for this step in the JSON data but no video

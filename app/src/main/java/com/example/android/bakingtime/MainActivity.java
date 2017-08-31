@@ -73,9 +73,10 @@ public class MainActivity extends AppCompatActivity {
             mRecipeList = savedInstanceState.getParcelableArrayList(RECIPES_LIST);
         }
 
+        mTwoPane = getApplicationContext().getResources().getBoolean(R.bool.isTablet);
+
 
         if (isTablet(getBaseContext())) {
-            mTwoPane = true;
             // Creating a new Grid Layout manager
             RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 3);
             // Setting the layout manager to the mRecipeRecyclerView
@@ -84,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
 
         } else {
             // We're in single-pane mode and displaying fragments on a phone in separate activities
-            mTwoPane = false;
             // Creating a new Vertical LinearLayout manager
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             // Setting the layout manager to the mRecipeRecyclerView

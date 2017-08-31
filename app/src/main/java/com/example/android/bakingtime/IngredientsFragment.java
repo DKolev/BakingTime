@@ -43,6 +43,8 @@ public class IngredientsFragment extends Fragment {
                 mIngredientsList = bundle.getParcelableArrayList("ingredients");
             }
         }
+
+        setRetainInstance(true);
     }
 
 
