@@ -1,6 +1,8 @@
 # BakingTime
 BakingTime - the 3rd project from Android Developer Nanodegree by Udacity
 
+A simple app that fetches a couple of recipes from the internet and then displays to the user the needed ingredients as well as a step-by-step guide how to prepare it. If the step has a video with additional info, it is showed to the user too.
+
 The app uses:
 * RecyclerView 
 * Retrofit2
