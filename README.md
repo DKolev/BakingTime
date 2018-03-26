@@ -14,4 +14,6 @@ The app uses:
 
 There is also a widget provided to show the needed ingredients for a particular recipe.
 
+Full project specification and requirements rubric: https://review.udacity.com/#!/rubrics/829/view
+
  
